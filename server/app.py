@@ -9,6 +9,21 @@ CORS(app)
 def hello():
     return {'message': 'This is a response from the server 😀😃😄😁😆😅😂🤣'}, 200
 
+secret_number = 50
+@app.route('/guess/<attempt>', methods=['POST'])
+def checkAttempt(attempt):
+    print('Attempt:', attempt)
+    attempt = int(attempt)
+    message = "CORRECT!"
+    if attempt < secret_number:
+        message = "HIGHER!"
+    elif attempt > secret_number:
+        message = "LOWER!"
+    else:
+        message = "CORRECT!"
+
+    return {'message':message}, 201
+
 
 @app.errorhandler(404)
 def not_found(e):
